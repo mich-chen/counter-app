@@ -61,3 +61,19 @@
   align-items: center;
   min-width: 40%;
 }
+
+.log-items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 30%;
+  text-decoration: none;
+}
+
+.log-item {
+  &:hover {
+    cursor: pointer;
+    background-color: #e5e5e5;
+    text-shadow: 0 0 1px #333;
+  }
+}
