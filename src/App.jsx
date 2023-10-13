@@ -7,13 +7,13 @@ function App() {
   const [countLog, setCountLog] = useState([]);
 
   const handleIncrement = () => {
-    const logDescription = `Increment at ${new Date(Date.now()).toUTCString()}`;
+    const logDescription = `Increment at ${new Date(Date.now()).toLocaleTimeString()}`;
     setCount(count + 1);
     setCountLog([...countLog, logDescription]);
   }
 
   const handleDecrement = () => {
-    const logDescription = `Decrement at ${new Date(Date.now()).toUTCString()}`;
+    const logDescription = `Decrement at ${new Date(Date.now()).toLocaleTimeString()}`;
     setCount(count - 1);
     setCountLog([...countLog, logDescription]);
   }
@@ -43,11 +43,11 @@ function App() {
 
       <div className='log-container'>
         <h2>Count Log</h2>
-        <>
+        <div className='log-items'>
           {countLog 
             ? countLog.map((log, index) => <li key={index}>{log}</li>)
             : 'No Logs to Display'}
-        </>
+        </div>
 
       </div>
       
