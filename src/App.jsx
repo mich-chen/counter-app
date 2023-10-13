@@ -3,25 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
   const [countLog, setCountLog] = useState([]);
-
-  const handleIncrement = () => {
-    const logDescription = `Increment at ${new Date(Date.now()).toLocaleTimeString()}`;
-    setCount(count + 1);
-    setCountLog([...countLog, logDescription]);
-  }
-
-  const handleDecrement = () => {
-    const logDescription = `Decrement at ${new Date(Date.now()).toLocaleTimeString()}`;
-    setCount(count - 1);
-    setCountLog([...countLog, logDescription]);
-  }
-
-  const handleReset = () => {
-    setCount(0);
-    setCountLog([]);
-  }
 
   const calculateCounter = (logs) => {
     let temp = 0;
@@ -34,18 +16,31 @@ function App() {
     })
     return temp;
   }
+
+  const handleIncrement = () => {
+    const logDescription = `Increment at ${new Date(Date.now()).toLocaleTimeString()}`;
+    setCountLog([...countLog, logDescription]);
+  }
+
+  const handleDecrement = () => {
+    const logDescription = `Decrement at ${new Date(Date.now()).toLocaleTimeString()}`;
+    setCountLog([...countLog, logDescription]);
+  }
+
+  const handleReset = () => {
+    setCountLog([]);
+  }
+
   const handleTimeTravel = (index) => {
     const updatedLogs = countLog.slice(0, index + 1);
     setCountLog(updatedLogs);
-    // update counter to reflect the count at this time
-    setCount(calculateCounter(updatedLogs));
   }
 
   return (
     <div className='app-container'>
       <div className='count-container'>
         <h1>Counter App</h1>
-        <h2>{count}</h2>
+        <h2>{calculateCounter(countLog)}</h2>
 
         <div className='button-container'>
           <button onClick={handleIncrement}>Increment</button>
