@@ -23,6 +23,24 @@ function App() {
     setCountLog([]);
   }
 
+  const calculateCounter = (logs) => {
+    let temp = 0;
+    logs.forEach((log) => {
+      if (log.includes('Increment')) {
+        temp++;
+      } else {
+        temp--;
+      }
+    })
+    return temp;
+  }
+  const handleTimeTravel = (index) => {
+    const updatedLogs = countLog.slice(0, index + 1);
+    setCountLog(updatedLogs);
+    // update counter to reflect the count at this time
+    setCount(calculateCounter(updatedLogs));
+  }
+
   return (
     <div className='app-container'>
       <div className='count-container'>
@@ -44,8 +62,16 @@ function App() {
       <div className='log-container'>
         <h2>Count Log</h2>
         <div className='log-items'>
-          {countLog 
-            ? countLog.map((log, index) => <li key={index}>{log}</li>)
+          {countLog.length 
+            ? countLog.map((log, index) => (
+              <li 
+                key={index}
+                className='log-item'
+                onClick={() => handleTimeTravel(index)}
+              >
+                {log}
+              </li>
+            ))
             : 'No Logs to Display'}
         </div>
 
