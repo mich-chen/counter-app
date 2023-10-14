@@ -1,3 +1,18 @@
+# Iterations on Improvements
+
+1. Basic React Counter app that increments and decrements a counter from buttons
+
+2. Add reset button to reset counter
+
+3. Add log to show all increment and decrement actions
+
+4. Add highlighting when selecting a log to time travel
+
+5. Add time travel v1 functionality when clicking a log item, counter reflects the count up to selection
+
+6. Add time travel v2 functinality where all logs are displayed and when log selection made, counter reflects count at that time but if user chooses to continue increment or decrement, log continues on. Added a pointer in log to indicate where in the log user is at
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
