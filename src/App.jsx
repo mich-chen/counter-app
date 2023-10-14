@@ -4,11 +4,13 @@ import './App.css';
 
 function App() {
   const [countLog, setCountLog] = useState([]);
+  const [count, setCount] = useState(0); // need count state to remember running count aside from time travel
+  const [pointer, setPointer] = useState(0);
 
   const calculateCounter = (logs) => {
     let temp = 0;
     logs.forEach((log) => {
-      if (log.includes('Increment')) {
+      if (log.description.includes('Increment')) {
         temp++;
       } else {
         temp--;
@@ -19,28 +21,42 @@ function App() {
 
   const handleIncrement = () => {
     const logDescription = `Increment at ${new Date(Date.now()).toLocaleTimeString()}`;
-    setCountLog([...countLog, logDescription]);
+    const currCount = calculateCounter(countLog) + 1;
+    setCountLog([...countLog, {
+      description: logDescription,
+      count: currCount,
+    }]);
+    setCount(currCount);
+    setPointer(countLog.length);
   }
 
   const handleDecrement = () => {
     const logDescription = `Decrement at ${new Date(Date.now()).toLocaleTimeString()}`;
-    setCountLog([...countLog, logDescription]);
+    const currCount = calculateCounter(countLog) - 1;
+    setCountLog([...countLog, {
+      description: logDescription,
+      count: currCount,
+    }]);
+    setCount(currCount);
+    setPointer(countLog.length);
   }
 
   const handleReset = () => {
+    setCount(0);
     setCountLog([]);
+    setPointer(0);
   }
 
-  const handleTimeTravel = (index) => {
-    const updatedLogs = countLog.slice(0, index + 1);
-    setCountLog(updatedLogs);
+  const handleTimeTravel = ({ log, index }) => {
+    setPointer(index);
+    setCount(log.count);
   }
 
   return (
     <div className='app-container'>
       <div className='count-container'>
         <h1>Counter App</h1>
-        <h2>{calculateCounter(countLog)}</h2>
+        <h2>{count}</h2>
 
         <div className='button-container'>
           <button onClick={handleIncrement}>Increment</button>
@@ -62,9 +78,9 @@ function App() {
               <li 
                 key={index}
                 className='log-item'
-                onClick={() => handleTimeTravel(index)}
+                onClick={() => handleTimeTravel({ log, index })}
               >
-                {log}
+                {log.description}{" "}{index === pointer ? '<--' : null}
               </li>
             ))
             : 'No Logs to Display'}
